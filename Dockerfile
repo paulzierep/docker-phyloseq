@@ -16,10 +16,15 @@ RUN Rscript -e "options(repos = c(CRAN = 'https://cran.r-project.org')); install
 # maybe even use a script?
 RUN Rscript -e "options(repos = c(CRAN = 'https://cran.r-project.org')); options(Ncpus = 2); BiocManager::install(c('biomformat', 'shiny', 'shinythemes', 'ggplot2', 'data', 'networkD3', 'genefilter', 'grid', 'gridExtra', 'markdown', 'rmarkdown', 'png', 'RColorBrewer', 'scales'))"
 
+#clone the repo
+# RUN apt-get install -y git
+# RUN git clone https://github.com/paulzierep/shiny-phyloseq.git && echo 'redo3' 
+
 USER root
 
 RUN mkdir -p /shiny_input /shiny_output
 RUN chown rstudio:rstudio /shiny_input /shiny_output
+
 USER rstudio
 
 ADD app_setup.R /app_setup.R
