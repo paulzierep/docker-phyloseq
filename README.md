@@ -33,3 +33,18 @@ Access on http://127.0.0.1:3838/
 
 * the tool wrapper: https://github.com/usegalaxy-eu/galaxy/pull/233
 * the tool fork: https://github.com/paulzierep/shiny-phyloseq
+
+# Wrapper
+
+## Test wrapper locally
+
+Get Galaxy !
+
+```
+GALAXY_PATH=~/git/galaxy # modify
+mv $GALAXY_PATH/config/galaxy.yml.interactivetools $GALAXY_PATH/config/galaxy.yml
+mv $GALAXY_PATH/config/job_conf.yml.interactivetools $GALAXY_PATH/config/job_conf.yml
+mv $GALAXY_PATH/config/tool_conf.xml.sample $GALAXY_PATH/config/tool_conf.xml #add interactive tools
+```
+
+
