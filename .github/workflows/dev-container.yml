@@ -1,8 +1,9 @@
 name: dev-container
 
 on:
-  # release:
-  #   types: [published]
+  push:
+    branches:
+      - 'dev'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -29,6 +30,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: quay.io/paulzierep/shinyphyloseq-dev:${{ github.sha }}
+          tags: quay.io/paulzierep/shinyphyloseq-dev:${{ github.event.release.tag_name }}
 
 
