@@ -1,27 +1,34 @@
-# will do things here
 
-# did once the cloning of the repo in here, but it is because i want to configure the ports and all
+#run locally so that the input can be patched
 
-# or use the ellipsis..
+# Sys.setenv(SHINY_OUTPUT_DIR='/home/paul/Downloads')
 
-# not clear exactly at first glance what and how needs to be provided, but some example datasets are in
+# phyloseq_app <- shiny::runApp(appDir = "shiny-phyloseq",
+#                                #launch.browser = FALSE, 
+#                                port = 3838, 
+#                                host = "0.0.0.0")
 
-# consider putting the files to run this whole in the app folder we would grab from the repo?
 
-# definition of outputs for this to be clarified..
+# test put function
+# galaxy_url <- Sys.getenv("REMOTE_HOST")
+# print(galaxy_url)
+# galaxy_url <- Sys.getenv("API_KEY")
+# print(galaxy_url)
+# galaxy_url <- Sys.getenv("HISTORY_ID")
+# print(galaxy_url)
+
+# system("echo 'Hello from bash!' > /shiny_input/test.txt")
+# system('put -p /shiny_input/test.txt')
+
 
 phyloseq_app <- shiny::runGitHub(repo = "shiny-phyloseq",
                                  username = "paulzierep", 
                                  launch.browser = FALSE, 
                                  port = 3838, 
-                                 host = "0.0.0.0")
+                                 host = "0.0.0.0",
+                                 ref = "put_get_gx_it"
+                                 )
+
 
 phyloseq_app
 
-# run locally so that the input can be patched
-# phyloseq_app <- shiny::runApp(appDir = "shiny-phyloseq",
-#                               launch.browser = FALSE, 
-#                               port = 3838, 
-#                               host = "0.0.0.0")
-
-# phyloseq_app

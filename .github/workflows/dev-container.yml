@@ -25,6 +25,12 @@ jobs:
           registry: quay.io
           username: paulzierep
           password: ${{ secrets.QUAY_OAUTH_TOKEN }}
+
+      - name: Extract metadata for the Docker image
+          id: meta
+          uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+          with:
+            images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
     
       - name: Build docker image and push to quay.io
         uses: docker/build-push-action@v4

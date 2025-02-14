@@ -1,5 +1,13 @@
 # docker-phyloseq
 
+## TODO
+
+* set-up dev container
+* test mulled container for the app
+* fix all download buttons
+* move close button globally
+* try to use put / get function of Galaxy
+
 ## Updates
 
 * Point `shiny::runGitHub` to a fork (https://github.com/paulzierep/shiny-phyloseq) where `BiocManager` is only installed if required. Thus starting the app without installations (since all packages are installed in the container) which should allow galaxy to run the app.
@@ -27,7 +35,24 @@ Access on http://127.0.0.1:3838/
 
 ## Ideas
 
+### Get all dependency in the container without knowing the app
+
 * just run ` shiny::runGitHub`; then kill it with `timeout` (https://stackoverflow.com/questions/48740277/error-using-timeout-command-invalid-time-interval)
+
+### Use mulled biocontainers instead of R for container building
+
+The R build had some issues (did not close / did not load data), the same app did run without issue in a
+conda env. Let's try to reproduce it.
+Using a PR here: https://github.com/BioContainers/multi-package-containers/edit/master/combinations/hash.tsv
+
+## Check the packages
+
+Run in the container
+
+```
+installed.packages()
+```
+
 
 ## Links 
 
@@ -47,4 +72,24 @@ mv $GALAXY_PATH/config/job_conf.yml.interactivetools $GALAXY_PATH/config/job_con
 mv $GALAXY_PATH/config/tool_conf.xml.sample $GALAXY_PATH/config/tool_conf.xml #add interactive tools
 ```
 
+## Test app locally
 
+```
+git clone https://github.com/paulzierep/shiny-phyloseq
+mamba create -n shiny -c conda-forge -c bioconda r-shiny bioconductor-phyloseq r-biocmanager r-curl
+mamba activate shiny
+export SHINY_OUTPUT_DIR=/home/paul/Downloads
+Rscript start.R
+```
+
+# Allow to use put / get in the shiny app
+
+* Check https://github.com/bgruening/docker-jupyter-notebook/blob/master/Dockerfile
+* https://github.com/bgruening/galaxy_ie_helpers/blob/master/galaxy_ie_helpers/__init__.py
+
+## Add phylosq app to Galaxy
+
+ln -s /home/paul/git/tools-dev/pyloseq-itx/docker-phyloseq/interactivetool_phyloseq.xml $GALAXY_PATH/tools/interactive/interactivetool_phyloseq.xml
+cp /home/paul/git/tools-dev/pyloseq-itx/docker-phyloseq/interactivetool_phyloseq.xml $GALAXY_PATH/tools/interactive/interactivetool_phyloseq.xml
+
+# Todo check why put cannot connect locally ?
