@@ -1,12 +1,16 @@
 # docker-phyloseq
 
+Docker set-up for a modified phyloseq shiny app, that integrates Galaxy put/get function into the Docker file.
+
 ## TODO
 
-* set-up dev container
-* test mulled container for the app
-* fix all download buttons
+* set-up dev container [x]
+* test mulled container for the app [x]
+* fix all download buttons [x]
 * move close button globally
-* try to use put / get function of Galaxy
+* try to use put / get function of Galaxy [x]
+* Explain how to run locally in Docs
+* Allow app to run without input
 
 ## Updates
 
@@ -93,3 +97,7 @@ ln -s /home/paul/git/tools-dev/pyloseq-itx/docker-phyloseq/interactivetool_phylo
 cp /home/paul/git/tools-dev/pyloseq-itx/docker-phyloseq/interactivetool_phyloseq.xml $GALAXY_PATH/tools/interactive/interactivetool_phyloseq.xml
 
 # Todo check why put cannot connect locally ?
+
+See: https://github.com/bgruening/galaxy_ie_helpers/issues/14
+* Get ip with ifconfig
+* Requires login

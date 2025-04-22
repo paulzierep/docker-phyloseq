@@ -6,16 +6,6 @@ FROM bioconductor/bioconductor_docker:RELEASE_3_18
 ENV SHINY_INPUT_DIR="/shiny_input"
 ENV SHINY_OUTPUT_DIR="/shiny_output"
 
-# get the get put functions
-# Update the package lists and install Python and pip
-RUN apt-get update && apt-get install -y \
-    python3 \
-    python3-pip \
-    && apt-get clean
-
-# Install Python dependencies using pip
-RUN pip3 install galaxy-ie-helpers
-
 # install Bioc
 RUN Rscript -e "options(repos = c(CRAN = 'https://cran.r-project.org')); install.packages('BiocManager')" && \
     Rscript -e "BiocManager::install(ask=FALSE)" && \
@@ -29,8 +19,6 @@ RUN Rscript -e "options(repos = c(CRAN = 'https://cran.r-project.org')); options
 #clone the repo
 # RUN apt-get install -y git
 # RUN git clone https://github.com/paulzierep/shiny-phyloseq.git && echo 'redo3' 
-
-RUN apt-get install net-tools
 
 USER root
 
