@@ -2,15 +2,63 @@
 
 Docker set-up for a modified phyloseq shiny app, that integrates Galaxy put/get function into the Docker file.
 
-## TODO
+### Steps to Integrate a Shiny Phyloseq App with Galaxy
 
-* set-up dev container [x]
-* test mulled container for the app [x]
-* fix all download buttons [x]
-* move close button globally
-* try to use put / get function of Galaxy [x]
-* Explain how to run locally in Docs
-* Allow app to run without input
+1. **Create or Fork a Shiny App**
+
+   * Start by forking or creating a Shiny app similar to [shiny-phyloseq](https://github.com/paulzierep/shiny-phyloseq).
+
+2. **(Optional) Implement Galaxy Data Exchange (put/get)**
+
+   * Add custom `put` and `get` functions to interact with Galaxy histories.
+   * Example implementation (on a separate branch):
+     [https://github.com/paulzierep/shiny-phyloseq/blob/7461c8f372d458e82c59e24da298ac79b32904f6/panels/panel-server-ordination.R#L161-L169](https://github.com/paulzierep/shiny-phyloseq/blob/7461c8f372d458e82c59e24da298ac79b32904f6/panels/panel-server-ordination.R#L161-L169)
+
+3. **Create a Dockerfile**
+
+   * Set up a Dockerfile that includes all required dependencies.
+   * Use this as a reference:
+     [https://github.com/paulzierep/docker-phyloseq/blob/main/Dockerfile](https://github.com/paulzierep/docker-phyloseq/blob/main/Dockerfile)
+
+4. **(Optional) Include put/get Dependencies in Dockerfile**
+
+   * If you're using the Galaxy data exchange functions, ensure the Dockerfile supports them.
+   * See example:
+     [https://github.com/paulzierep/docker-phyloseq/blob/fafc0ee37573f5d1ebe6ad67c2228dc240ef94b5/Dockerfile#L17](https://github.com/paulzierep/docker-phyloseq/blob/fafc0ee37573f5d1ebe6ad67c2228dc240ef94b5/Dockerfile#L17)
+
+5. **Configure Runtime Behavior**
+
+   * Ensure the app launches automatically on container start.
+   * Example setup script:
+     [https://github.com/paulzierep/docker-phyloseq/blob/main/app\_setup.R](https://github.com/paulzierep/docker-phyloseq/blob/main/app_setup.R)
+
+6. **Test the Docker Container Locally**
+
+   * Run the container on your local machine and verify the Shiny app launches and functions correctly.
+
+7. **Deploy the Docker Container**
+
+   * Use CI/CD (e.g. GitHub Actions) to build and deploy the container.
+   * Example workflow:
+     [https://github.com/paulzierep/docker-phyloseq/blob/main/.github/workflows/release.yml](https://github.com/paulzierep/docker-phyloseq/blob/main/.github/workflows/release.yml)
+
+8. **Write a Galaxy Tool Wrapper**
+
+   * Create a wrapper for your interactive tool.
+   * Reference example:
+     [https://github.com/paulzierep/docker-phyloseq/blob/main/interactivetool\_phyloseq.xml](https://github.com/paulzierep/docker-phyloseq/blob/main/interactivetool_phyloseq.xml)
+   * **Note:** `environment_variables` in the XML are only necessary if using the Galaxy `put/get` integration.
+
+9. **Test the Galaxy Wrapper Locally**
+
+   * Use a local Galaxy instance and interactive tools configuration to verify the integration and functionality. (See Test wrapper locally)
+
+10. **Submit a Pull Request**
+
+    * Contribute your wrapper to the Galaxy code base (or a specific server setup).
+    * Example target (Europe server):
+      [https://github.com/usegalaxy-eu/galaxy/blob/release\_24.2\_europe/tools/interactive/interactivetool\_phyloseq.xml](https://github.com/usegalaxy-eu/galaxy/blob/release_24.2_europe/tools/interactive/interactivetool_phyloseq.xml)
+    * Note: Interactive tools are deployed **directly via GitHub**, not via the Toolshed.
 
 ## Updates
 
